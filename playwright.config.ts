@@ -1,4 +1,4 @@
-import { devices, PlaywrightTestConfig } from '@playwright/test';
+import { devices, type PlaywrightTestConfig } from '@playwright/test';
 import { config as dotenvConfig } from 'dotenv';
 import { resolve } from 'node:path';
 dotenvConfig({ path: resolve(process.cwd(), 'example.env') });
@@ -27,6 +27,8 @@ const config: PlaywrightTestConfig = {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+        video: 'on',
+        screenshot: 'only-on-failure',
       },
     },
   ],
