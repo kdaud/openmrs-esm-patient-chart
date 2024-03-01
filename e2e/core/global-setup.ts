@@ -25,6 +25,7 @@ async function globalSetup() {
       Authorization: `Basic ${token}`,
     },
   });
+
   await requestContext.storageState({ path: 'e2e/storageState.json' });
   await requestContext.dispose();
 }
