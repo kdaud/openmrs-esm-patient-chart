@@ -9,7 +9,7 @@ test.beforeEach(async ({ api }) => {
   patient = await generateRandomPatient(api);
 });
 
-test('Start a visit', async ({ page, api }) => {
+test('Start and end a visit', async ({ page }) => {
   const chartPage = new ChartPage(page);
 
   await test.step('When I visit the chart summary page', async () => {
@@ -21,6 +21,7 @@ test('Start a visit', async ({ page, api }) => {
   });
 
   await test.step('Then I should see the `Start Visit` form in the workspace', async () => {
+    await expect(chartPage.page.getByText(/start a visit/i)).toBeVisible();
     await expect(chartPage.page.getByText(/visit start date and time/i)).toBeVisible();
     await expect(chartPage.page.getByPlaceholder(/dd\/mm\/yyyy/i)).toBeVisible();
     await expect(chartPage.page.getByPlaceholder(/hh\:mm/i)).toBeVisible();
@@ -40,7 +41,7 @@ test('Start a visit', async ({ page, api }) => {
     await chartPage.page.getByText(/opd visit/i).click();
   });
 
-  await test.step('And I click the `Start Visit` button', async () => {
+  await test.step('And I click on the `Start Visit` button', async () => {
     await chartPage.page
       .locator('form')
       .getByRole('button', { name: /start a visit/i })
@@ -55,7 +56,7 @@ test('Start a visit', async ({ page, api }) => {
     await expect(chartPage.page.getByLabel(/active visit/i)).toBeVisible();
   });
 
-  await test.step('When I click the `End Visit` button', async () => {
+  await test.step('When I click on the `End Visit` button', async () => {
     await chartPage.page.getByRole('button', { name: /end visit/i }).click();
   });
 
