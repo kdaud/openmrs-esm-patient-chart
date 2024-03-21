@@ -33,7 +33,7 @@ test('Add and remove an attachment', async ({ page }) => {
     await page.on('filechooser', async (fileChooser) => {
       await fileChooser.setFiles(filePath);
     });
-    await page.click('.cds--file__drop-container');
+    await page.click('.cds--file-browse-btn');
   });
 
   await test.step('And I add the attachment description', async () => {
@@ -86,6 +86,6 @@ test('Add and remove an attachment', async ({ page }) => {
   });
 });
 
-test.afterEach(async ({ api }) => {
-  await deletePatient(api, patient.uuid);
+test.afterEach(async ({ api, page }) => {
+  await [deletePatient(api, patient.uuid), page.close()];
 });
